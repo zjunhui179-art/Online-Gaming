@@ -492,82 +492,98 @@ def generate_eda_slider_html(images_b64, titles):
     </html>
     """
     return html
+# ==========================================
+# PREMIUM NAVIGATION TABS (BULLETPROOF NEON DOCK)
+# ==========================================
 
 st.markdown("""
 <style>
+/* 1. Pull the entire tab container up to dock seamlessly with the header */
 [data-testid="stTabs"] {
     position: relative !important;
     margin-top: -10px !important; 
     z-index: 10 !important;
 }
 
+/* 2. Style the Tab Bar background to act as the bottom half of the header card */
 [data-testid="stTabs"] [role="tablist"],
 [data-testid="stTabs"] [data-baseweb="tab-list"] {
     width: 100% !important;
     display: flex !important;
     justify-content: center !important;
-    align-items: center !important;
-    background: #10002b !important;
+    background: #10002b !important; /* Deep dark purple matching the header */
     border: 1px solid #3c096c !important;
     border-top: none !important;
     border-radius: 0 0 16px 16px !important;
-    padding: 10px 16px !important;
+    padding: 8px 15px 12px 15px !important;
     box-shadow: 0 15px 30px rgba(0,0,0,0.5) !important;
-    gap: 10px !important;
-    flex-wrap: nowrap !important;
+    gap: 0 !important;
 }
 
+/* 3. Base Tab Styling (Inactive) */
 [data-testid="stTabs"] button[role="tab"] {
-    flex: 1 1 0 !important;
-    min-width: 0 !important;
-    height: 44px !important;
+    flex: 1 !important;
+    height: 48px !important;
     background: transparent !important;
     border: none !important;
-    border-radius: 12px !important;
+    
+    /* Create vertical divider lines between tabs */
+    border-right: 1px solid rgba(157, 78, 221, 0.25) !important;
+    border-radius: 0 !important;
+    
     display: flex !important;
     align-items: center !important;
     justify-content: center !important;
     transition: all 0.3s ease !important;
     margin: 0 !important;
-    padding: 0 14px !important;
-    white-space: nowrap !important;
-    overflow: hidden !important;
 }
 
+/* Remove right border from the last tab */
+[data-testid="stTabs"] button[role="tab"]:last-child {
+    border-right: none !important;
+}
+
+/* 4. Active Tab Styling (Glowing slanted highlight) */
 [data-testid="stTabs"] button[role="tab"][aria-selected="true"] {
-    background: linear-gradient(135deg, #9d4edd 0%, #5a189a 100%) !important;
+    background: linear-gradient(90deg, rgba(90, 24, 154, 0.8) 0%, rgba(123, 44, 191, 0.4) 100%) !important;
+    border: 1px solid #9d4edd !important;
+    border-radius: 12px !important; /* Distinct pill shape inside the bar */
     box-shadow: 0 0 15px rgba(157, 78, 221, 0.5) !important;
     transform: scale(1.02);
 }
 
+/* Hover state for inactive tabs */
 [data-testid="stTabs"] button[role="tab"]:not([aria-selected="true"]):hover {
     background: rgba(123, 44, 191, 0.15) !important;
 }
 
+/* 5. Typography */
 [data-testid="stTabs"] button[role="tab"] p {
-    color: #c8b6ff !important;
-    font-size: 15px !important;
+    color: #e0aaff !important;
+    font-size: 16px !important;
     font-weight: 600 !important;
     margin: 0 !important;
-    white-space: nowrap !important;
-    text-overflow: ellipsis !important;
-    overflow: hidden !important;
 }
 
+/* Active Tab Typography */
 [data-testid="stTabs"] button[role="tab"][aria-selected="true"] p {
     color: #ffffff !important;
     font-weight: 800 !important;
     text-shadow: 0 0 10px rgba(255, 255, 255, 0.5) !important;
 }
 
+/* 6. Destroy default Streamlit artifacts (Red underline) */
 [data-testid="stTabs"] [data-baseweb="tab-highlight"],
-[data-testid="stTabs"] button[role="tab"] [data-baseweb="tab-highlight"] {
+[data-testid="stTabs"] button[role="tab"] [data-baseweb="tab-highlight"],
+[data-testid="stTabs"] button[role="tab"] div[data-baseweb="tab-highlight"] {
     display: none !important;
     background: transparent !important;
     height: 0 !important;
 }
 
-[data-testid="stTabs"] [role="tabpanel"] {
+/* 7. Content padding below the tabs */
+[data-testid="stTabs"] [role="tabpanel"],
+[data-testid="stTabs"] [data-testid="stTabView"] {
     padding-top: 30px !important;
 }
 </style>
