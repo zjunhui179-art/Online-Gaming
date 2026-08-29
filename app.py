@@ -1260,96 +1260,98 @@ with tab_perf:
     # SUMMARY CARDS 
     # ---------------------------------------------------------
 
+    # ---------------------------------------------------------
+    # SUMMARY CARDS (Replacing Dataframe Table)
+    # ---------------------------------------------------------
+
     with st.container(border=False):
         st.markdown('<div class="bento-marker"></div>', unsafe_allow_html=True)
         st.markdown('<div class="section-header"><span class="dot"></span><span class="label"> Performance Summary Cards</span></div>', unsafe_allow_html=True)
 
-        cards_html = """
-        <style>
-        .summary-card-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-            gap: 20px;
-            margin-top: 10px;
-            margin-bottom: 20px;
-        }
-        /* Box styling based on Image 3 (purple bottom border, soft shadow) */
-        .summary-box {
-            background: #ffffff;
-            border: 1px solid #f0e6fa;
-            border-bottom: 4px solid #c9a6f0;
-            border-radius: 12px;
-            padding: 24px;
-            box-shadow: 0 4px 15px rgba(106, 13, 173, 0.04);
-            transition: transform 0.2s ease, box-shadow 0.2s ease, border-color 0.2s ease;
-            position: relative;
-        }
-        .summary-box:hover {
-            transform: translateY(-4px);
-            box-shadow: 0 10px 25px rgba(106, 13, 173, 0.12);
-            border-bottom: 4px solid #6A0DAD;
-        }
-        /* Highlight the top performer */
-        .summary-box.winner-box {
-            border-bottom: 4px solid #6A0DAD;
-            background: linear-gradient(180deg, #ffffff 0%, #fdfbff 100%);
-        }
-        .box-title {
-            font-size: 20px;
-            font-weight: 800;
-            color: #1a0b2e;
-            margin-bottom: 2px;
-        }
-        .box-sub {
-            font-size: 11px;
-            color: #8a7a99;
-            text-transform: uppercase;
-            letter-spacing: 0.5px;
-            margin-bottom: 20px;
-        }
-        /* Card Layout based on Image 2 (Metrics with progress bars) */
-        .metric-row {
-            margin-bottom: 14px;
-        }
-        .metric-labels {
-            display: flex;
-            justify-content: space-between;
-            font-size: 13px;
-            font-weight: 700;
-            color: #3a1050;
-            margin-bottom: 6px;
-        }
-        .metric-val {
-            color: #6A0DAD; /* Purple text styling from Image 3 */
-            font-weight: 800;
-        }
-        .metric-bar-bg {
-            width: 100%;
-            height: 5px;
-            background: #f3ebfa;
-            border-radius: 3px;
-            overflow: hidden;
-        }
-        .metric-bar-fill {
-            height: 100%;
-            background: linear-gradient(90deg, #b45cff, #6A0DAD);
-            border-radius: 3px;
-        }
-        .winner-badge {
-            position: absolute;
-            top: -12px;
-            right: 20px;
-            background: #6A0DAD;
-            color: white;
-            font-size: 11px;
-            padding: 4px 12px;
-            border-radius: 12px;
-            font-weight: bold;
-            box-shadow: 0 4px 10px rgba(106, 13, 173, 0.3);
-        }
-        </style>
-        <div class="summary-card-grid">
-        """
+        cards_html = """<style>
+.summary-card-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 20px;
+    margin-top: 10px;
+    margin-bottom: 20px;
+}
+/* Box styling */
+.summary-box {
+    background: #ffffff;
+    border: 1px solid #f0e6fa;
+    border-bottom: 4px solid #c9a6f0;
+    border-radius: 12px;
+    padding: 24px;
+    box-shadow: 0 4px 15px rgba(106, 13, 173, 0.04);
+    transition: transform 0.2s ease, box-shadow 0.2s ease, border-color 0.2s ease;
+    position: relative;
+}
+.summary-box:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 10px 25px rgba(106, 13, 173, 0.12);
+    border-bottom: 4px solid #6A0DAD;
+}
+/* Highlight the top performer */
+.summary-box.winner-box {
+    border-bottom: 4px solid #6A0DAD;
+    background: linear-gradient(180deg, #ffffff 0%, #fdfbff 100%);
+}
+.box-title {
+    font-size: 20px;
+    font-weight: 800;
+    color: #1a0b2e;
+    margin-bottom: 2px;
+}
+.box-sub {
+    font-size: 11px;
+    color: #8a7a99;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    margin-bottom: 20px;
+}
+.metric-row {
+    margin-bottom: 14px;
+}
+.metric-labels {
+    display: flex;
+    justify-content: space-between;
+    font-size: 13px;
+    font-weight: 700;
+    color: #3a1050;
+    margin-bottom: 6px;
+}
+.metric-val {
+    color: #6A0DAD; 
+    font-weight: 800;
+}
+.metric-bar-bg {
+    width: 100%;
+    height: 5px;
+    background: #f3ebfa;
+    border-radius: 3px;
+    overflow: hidden;
+}
+.metric-bar-fill {
+    height: 100%;
+    background: linear-gradient(90deg, #b45cff, #6A0DAD);
+    border-radius: 3px;
+}
+.winner-badge {
+    position: absolute;
+    top: -12px;
+    right: 20px;
+    background: #6A0DAD;
+    color: white;
+    font-size: 11px;
+    padding: 4px 12px;
+    border-radius: 12px;
+    font-weight: bold;
+    box-shadow: 0 4px 10px rgba(106, 13, 173, 0.3);
+}
+</style>
+<div class="summary-card-grid">
+"""
 
         # Generate a styled card for each model
         for _, row in comparison_df.iterrows():
@@ -1358,28 +1360,26 @@ with tab_perf:
             winner_class = "winner-box" if is_winner else ""
             badge_html = '<div class="winner-badge">🏆 Top Performer</div>' if is_winner else ''
 
-            cards_html += f"""
-            <div class="summary-box {winner_class}">
-                {badge_html}
-                <div class="box-title">{model_name}</div>
-                <div class="box-sub">Testing Set Performance</div>
-            """
+            cards_html += f"""<div class="summary-box {winner_class}">
+{badge_html}
+<div class="box-title">{model_name}</div>
+<div class="box-sub">Testing Set Performance</div>
+"""
 
             # Iterate over metrics to build the inner bars
             for metric in ["Accuracy", "Precision", "Recall", "AUC"]:
                 val = row[metric]
                 pct_str = f"{val:.2%}"
-                cards_html += f"""
-                <div class="metric-row">
-                    <div class="metric-labels">
-                        <span>{metric}</span>
-                        <span class="metric-val">{pct_str}</span>
-                    </div>
-                    <div class="metric-bar-bg">
-                        <div class="metric-bar-fill" style="width: {val * 100}%;"></div>
-                    </div>
-                </div>
-                """
+                cards_html += f"""<div class="metric-row">
+<div class="metric-labels">
+<span>{metric}</span>
+<span class="metric-val">{pct_str}</span>
+</div>
+<div class="metric-bar-bg">
+<div class="metric-bar-fill" style="width: {val * 100}%;"></div>
+</div>
+</div>
+"""
             cards_html += "</div>"
 
         cards_html += "</div>"
