@@ -492,99 +492,66 @@ def generate_eda_slider_html(images_b64, titles):
     </html>
     """
     return html
+    
 # ==========================================
-# PREMIUM NAVIGATION TABS (BULLETPROOF NEON DOCK)
+# PREMIUM NAVIGATION TABS (MOVED INTO HEADER)
 # ==========================================
 
 st.markdown("""
 <style>
-/* 1. Pull the entire tab container up to dock seamlessly with the header */
-[data-testid="stTabs"] {
+/* 1. Pull the entire tab list up into the banner area */
+div[data-testid="stTabs"] > div[data-baseweb="tab-list"] {
+    margin-top: -65px !important; /* Pulls the tabs over the banner */
+    padding-left: 35px !important; /* Aligns with the banner text */
+    background-color: transparent !important;
+    border-bottom: none !important;
+    z-index: 99999 !important;
     position: relative !important;
-    margin-top: -10px !important; 
-    z-index: 10 !important;
+    gap: 12px !important;
 }
 
-/* 2. Style the Tab Bar background to act as the bottom half of the header card */
-[data-testid="stTabs"] [role="tablist"],
-[data-testid="stTabs"] [data-baseweb="tab-list"] {
-    width: 100% !important;
-    display: flex !important;
-    justify-content: center !important;
-    background: #10002b !important; /* Deep dark purple matching the header */
-    border: 1px solid #3c096c !important;
-    border-top: none !important;
-    border-radius: 0 0 16px 16px !important;
-    padding: 8px 15px 12px 15px !important;
-    box-shadow: 0 15px 30px rgba(0,0,0,0.5) !important;
-    gap: 0 !important;
+/* 2. Push the content below the tabs down so it doesn't overlap the header */
+div[data-testid="stTabs"] > div[data-baseweb="tab-panel"] {
+    padding-top: 35px !important;
 }
 
-/* 3. Base Tab Styling (Inactive) */
-[data-testid="stTabs"] button[role="tab"] {
-    flex: 1 !important;
-    height: 48px !important;
-    background: transparent !important;
-    border: none !important;
-    
-    /* Create vertical divider lines between tabs */
-    border-right: 1px solid rgba(157, 78, 221, 0.25) !important;
-    border-radius: 0 !important;
-    
-    display: flex !important;
-    align-items: center !important;
-    justify-content: center !important;
+/* 3. Style the tabs as semi-transparent capsules to contrast with the dark banner */
+div[data-testid="stTabs"] [data-baseweb="tab"] {
+    background: rgba(255, 255, 255, 0.1) !important;
+    border: 1px solid rgba(255, 255, 255, 0.3) !important;
+    border-radius: 20px !important;
+    padding: 6px 20px !important;
+    height: auto !important;
+    min-height: 40px !important;
     transition: all 0.3s ease !important;
-    margin: 0 !important;
 }
 
-/* Remove right border from the last tab */
-[data-testid="stTabs"] button[role="tab"]:last-child {
-    border-right: none !important;
+div[data-testid="stTabs"] [data-baseweb="tab"]:hover {
+    background: rgba(255, 255, 255, 0.2) !important;
+    transform: translateY(-2px);
 }
 
-/* 4. Active Tab Styling (Glowing slanted highlight) */
-[data-testid="stTabs"] button[role="tab"][aria-selected="true"] {
-    background: linear-gradient(90deg, rgba(90, 24, 154, 0.8) 0%, rgba(123, 44, 191, 0.4) 100%) !important;
-    border: 1px solid #9d4edd !important;
-    border-radius: 12px !important; /* Distinct pill shape inside the bar */
-    box-shadow: 0 0 15px rgba(157, 78, 221, 0.5) !important;
-    transform: scale(1.02);
+/* 4. Active Tab styling (Solid White) */
+div[data-testid="stTabs"] [data-baseweb="tab"][aria-selected="true"] {
+    background: #ffffff !important;
+    border-color: #ffffff !important;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.2) !important;
 }
 
-/* Hover state for inactive tabs */
-[data-testid="stTabs"] button[role="tab"]:not([aria-selected="true"]):hover {
-    background: rgba(123, 44, 191, 0.15) !important;
-}
-
-/* 5. Typography */
-[data-testid="stTabs"] button[role="tab"] p {
-    color: #e0aaff !important;
-    font-size: 16px !important;
+/* 5. Text coloring inside the tabs */
+div[data-testid="stTabs"] [data-baseweb="tab"] p {
+    color: #ebd9ff !important;
     font-weight: 600 !important;
-    margin: 0 !important;
+    font-size: 15px !important;
 }
-
-/* Active Tab Typography */
-[data-testid="stTabs"] button[role="tab"][aria-selected="true"] p {
-    color: #ffffff !important;
+div[data-testid="stTabs"] [data-baseweb="tab"][aria-selected="true"] p {
+    color: #3a0a63 !important;
     font-weight: 800 !important;
-    text-shadow: 0 0 10px rgba(255, 255, 255, 0.5) !important;
 }
 
-/* 6. Destroy default Streamlit artifacts (Red underline) */
-[data-testid="stTabs"] [data-baseweb="tab-highlight"],
-[data-testid="stTabs"] button[role="tab"] [data-baseweb="tab-highlight"],
-[data-testid="stTabs"] button[role="tab"] div[data-baseweb="tab-highlight"] {
+/* 6. Hide the default Streamlit red/blue bottom indicator line */
+div[data-testid="stTabs"] [data-baseweb="tab-highlight"] {
     display: none !important;
-    background: transparent !important;
-    height: 0 !important;
-}
-
-/* 7. Content padding below the tabs */
-[data-testid="stTabs"] [role="tabpanel"],
-[data-testid="stTabs"] [data-testid="stTabView"] {
-    padding-top: 30px !important;
 }
 </style>
 """, unsafe_allow_html=True)
