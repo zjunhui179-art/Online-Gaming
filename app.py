@@ -212,12 +212,12 @@ body.hide-smart-header div[data-testid="stTabs"] > div[role="tablist"] {
 </style>
 
 <div class="gaming-header">
-    <div class="decor-left">🎮📊</div>
+    <div class="decor-left"></div>
     <div class="header-center">
         <div class="header-title">Online Gaming Analytics</div>
         <div class="header-subtitle">Player Behavior Prediction • Machine Learning • Data Science</div>
     </div>
-    <div class="decor-right">📈🕹️</div>
+    <div class="decor-right"></div>
 </div>
 """, unsafe_allow_html=True)
 
