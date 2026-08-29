@@ -131,146 +131,93 @@ div.stButton > button:focus:not(:active) {
 """, unsafe_allow_html=True)
 
 # ==========================================
-# PREMIUM HEADER
+# PREMIUM HEADER (NEON GAMING STYLE)
 # ==========================================
 
 st.markdown("""
 <style>
-
-/* ---------- Smart sticky effect core control ---------- */
-
-/* 1. Accurately target the outer container of the Header to make it sticky */
+/* Smart sticky effect core control */
 div.element-container:has(.gaming-header) {
     position: sticky !important;
     top: 1.5rem !important;
     z-index: 99999 !important;
     transition: transform 0.4s cubic-bezier(0.3, 0, 0.2, 1) !important;
 }
-
-/* 2. When JS detects scrolling down, add hidden translation animation */
-body.hide-smart-header div.element-container:has(.gaming-header) {
+body.hide-smart-header div.element-container:has(.gaming-header),
+body.hide-smart-header div[data-testid="stTabs"] > div[role="tablist"] {
     transform: translateY(-250px) !important;
 }
 
-/* Tabs hide along with it */
-body.hide-smart-header div[data-testid="stTabs"] > div[data-baseweb="tab-list"] {
-    transform: translateY(-250px) !important;
-}
-
-/* ---------- MAIN HEADER ---------- */
-
+/* MAIN HEADER */
 .gaming-header {
     width: 100%;
-    padding: 45px 35px 45px 35px;
-    margin-bottom: 0px; /* Remove bottom margin to make content below tighter */
-    border-radius: 22px;
+    padding: 30px 40px;
+    margin-bottom: 0px !important;
+    border-radius: 16px 16px 0 0; /* Flat bottom to connect to tabs */
+    position: relative;
     overflow: hidden;
-    position: relative;
-
-    background: radial-gradient(circle at 90% 20%, rgba(155, 89, 182, 0.25), transparent 35%),
-                radial-gradient(circle at 10% 80%, rgba(106, 13, 173, 0.18), transparent 35%),
-                linear-gradient(135deg, #16002b 0%, #26004a 45%, #12001f 100%);
-    box-shadow: 0 15px 45px rgba(72, 0, 120, 0.25);
-}
-
-/* Decorative glow */
-
-.gaming-header::before {
-    content: "";
-    position: absolute;
-    width: 280px;
-    height: 280px;
-    right: -100px;
-    top: -130px;
-    border-radius: 50%;
-
-    background: rgba(190, 120, 255, 0.15);
-    filter: blur(20px);
-}
-
-.gaming-header::after {
-    content: "";
-    position: absolute;
-    bottom: 0;
-    left: 0;
-    width: 100%;
-    height: 3px;
-    background: linear-gradient(90deg, #6A0DAD, #b45cff, #6A0DAD);
-    background-size: 200% 100%;
-    animation: gradientMove 4s linear infinite;
-}
-
-@keyframes gradientMove {
-    0% { background-position: 0% 50%; }
-    100% { background-position: 200% 50%; }
-}
-
-/* Header content */
-
-.header-content {
-    position: relative;
-    z-index: 2;
+    
+    /* Deep purple gradient matching the design */
+    background: linear-gradient(90deg, #10002b 0%, #240046 50%, #10002b 100%);
+    border: 1px solid #3c096c;
+    border-bottom: none;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5), inset 0 0 40px rgba(123, 44, 191, 0.2);
+    
     display: flex;
     align-items: center;
     justify-content: space-between;
 }
 
-/* Logo */
-
-.logo-area {
-    display: flex;
-    align-items: center;
-    gap: 18px;
+/* Center Text Alignments */
+.header-center {
+    text-align: center;
+    flex-grow: 1;
+    z-index: 2;
 }
-
-.logo-icon {
-    width: 65px;
-    height: 65px;
-    border-radius: 18px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 34px;
-    background: linear-gradient(135deg, rgba(255,255,255,0.18), rgba(255,255,255,0.05));
-    border: 1px solid rgba(255,255,255,0.2);
-    box-shadow: 0 8px 25px rgba(0,0,0,0.25), inset 0 0 20px rgba(255,255,255,0.05);
-}
-
-/* Title */
 
 .header-title {
     margin: 0;
-    color: white;
-    font-size: 32px;
-    font-weight: 800;
-    letter-spacing: -0.5px;
+    color: #ffffff;
+    font-size: 38px;
+    font-weight: 900;
+    letter-spacing: 0.5px;
+    text-shadow: 0 0 15px rgba(224, 170, 255, 0.6), 0 0 30px rgba(157, 78, 221, 0.4);
 }
 
 .header-subtitle {
-    margin-top: 5px;
-    color: rgba(255,255,255,0.68);
-    font-size: 14px;
-    letter-spacing: 0.5px;
+    margin-top: 8px;
+    color: #c8b6ff;
+    font-size: 15px;
+    font-weight: 500;
+    letter-spacing: 1px;
 }
 
+/* Left & Right Decorative Elements (CSS approximations of your 3D assets) */
+.decor-left, .decor-right {
+    font-size: 55px;
+    opacity: 0.9;
+    z-index: 2;
+    filter: drop-shadow(0 0 15px rgba(157, 78, 221, 0.8));
+}
+
+/* Background glows */
+.gaming-header::before {
+    content: ""; position: absolute; left: 10%; top: -50px; width: 200px; height: 200px;
+    background: radial-gradient(circle, rgba(123,44,191,0.4) 0%, transparent 70%);
+}
+.gaming-header::after {
+    content: ""; position: absolute; right: 10%; top: -50px; width: 200px; height: 200px;
+    background: radial-gradient(circle, rgba(123,44,191,0.4) 0%, transparent 70%);
+}
 </style>
-""", unsafe_allow_html=True)
 
-
-st.markdown("""
 <div class="gaming-header">
-<div class="header-content">
-<div class="logo-area">
-<div>
-<div class="header-title">
-Online Gaming Analytics
-</div>
-<div class="header-subtitle">
-PLAYER BEHAVIOR PREDICTION • MACHINE LEARNING • DATA SCIENCE
-</div>
-</div>
-</div>
-</div>
+    <div class="decor-left">🎮📊</div>
+    <div class="header-center">
+        <div class="header-title">Online Gaming Analytics</div>
+        <div class="header-subtitle">Player Behavior Prediction • Machine Learning • Data Science</div>
+    </div>
+    <div class="decor-right">📈🕹️</div>
 </div>
 """, unsafe_allow_html=True)
 
@@ -547,64 +494,102 @@ def generate_eda_slider_html(images_b64, titles):
     return html
 
 # ==========================================
-# PREMIUM NAVIGATION TABS (MOVED INTO HEADER)
+# PREMIUM NAVIGATION TABS (UNIFIED DOCKING)
 # ==========================================
 
 st.markdown("""
 <style>
-/* 1. Pull the entire tab list up into the banner area */
-div[data-testid="stTabs"] > div[data-baseweb="tab-list"] {
-    margin-top: -65px !important; /* Pulls the tabs over the banner */
-    padding-left: 35px !important; /* Aligns with the banner text */
-    background-color: transparent !important;
-    border-bottom: none !important;
-    z-index: 99999 !important;
+/* 1. Pull tabs flush against the bottom of the header */
+div[data-testid="stTabs"] {
     position: relative !important;
-    gap: 12px !important;
+    margin-top: -15px !important; 
+    z-index: 10 !important;
 }
 
-/* 2. Push the content below the tabs down so it doesn't overlap the header */
-div[data-testid="stTabs"] > div[data-baseweb="tab-panel"] {
-    padding-top: 35px !important;
+/* 2. Style the Tab Bar background to act as the bottom half of the header card */
+div[data-testid="stTabs"] > div[role="tablist"],
+div[data-testid="stTabs"] div[data-baseweb="tab-list"] {
+    width: 100% !important;
+    display: flex !important;
+    justify-content: center !important;
+    background: #1a0033 !important; /* Matches bottom of header */
+    border: 1px solid #3c096c !important;
+    border-top: none !important;
+    border-radius: 0 0 16px 16px !important;
+    padding: 10px 20px !important;
+    gap: 0px !important;
+    box-shadow: 0 15px 30px rgba(0,0,0,0.4) !important;
 }
 
-/* 3. Style the tabs as semi-transparent capsules to contrast with the dark banner */
-div[data-testid="stTabs"] [data-baseweb="tab"] {
-    background: rgba(255, 255, 255, 0.1) !important;
-    border: 1px solid rgba(255, 255, 255, 0.3) !important;
-    border-radius: 20px !important;
-    padding: 6px 20px !important;
-    height: auto !important;
-    min-height: 40px !important;
+/* 3. Base Tab Styling (Inactive) */
+div[data-testid="stTabs"] button[role="tab"], 
+div[data-testid="stTabs"] div[data-baseweb="tab"] {
+    flex: 1 !important;
+    height: 50px !important;
+    margin: 0 !important;
+    background: transparent !important;
+    border: none !important;
+    
+    /* Create vertical divider lines between tabs */
+    border-right: 1px solid rgba(123, 44, 191, 0.3) !important;
+    border-radius: 0 !important;
+    
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
     transition: all 0.3s ease !important;
 }
 
-div[data-testid="stTabs"] [data-baseweb="tab"]:hover {
-    background: rgba(255, 255, 255, 0.2) !important;
-    transform: translateY(-2px);
+/* Remove right border from the last tab */
+div[data-testid="stTabs"] button[role="tab"]:last-child, 
+div[data-testid="stTabs"] div[data-baseweb="tab"]:last-child {
+    border-right: none !important;
 }
 
-/* 4. Active Tab styling (Solid White) */
-div[data-testid="stTabs"] [data-baseweb="tab"][aria-selected="true"] {
-    background: #ffffff !important;
-    border-color: #ffffff !important;
-    box-shadow: 0 4px 15px rgba(0,0,0,0.2) !important;
+/* 4. Active Tab Styling (Glowing slanted highlight from design) */
+div[data-testid="stTabs"] button[role="tab"][aria-selected="true"],
+div[data-testid="stTabs"] div[data-baseweb="tab"][aria-selected="true"] {
+    background: linear-gradient(90deg, rgba(90, 24, 154, 0.8) 0%, rgba(123, 44, 191, 0.4) 100%) !important;
+    border: 1px solid #9d4edd !important;
+    border-radius: 12px !important; /* Distinct pill shape inside the bar */
+    box-shadow: 0 0 15px rgba(157, 78, 221, 0.5) !important;
+    transform: scale(1.02);
+    border-right: 1px solid #9d4edd !important;
 }
 
-/* 5. Text coloring inside the tabs */
-div[data-testid="stTabs"] [data-baseweb="tab"] p {
-    color: #ebd9ff !important;
+/* 5. Typography and Icons */
+div[data-testid="stTabs"] button p {
+    color: #e0aaff !important;
+    font-size: 16px !important;
     font-weight: 600 !important;
-    font-size: 15px !important;
-}
-div[data-testid="stTabs"] [data-baseweb="tab"][aria-selected="true"] p {
-    color: #3a0a63 !important;
-    font-weight: 800 !important;
+    margin: 0 !important;
+    display: flex;
+    align-items: center;
+    gap: 10px;
 }
 
-/* 6. Hide the default Streamlit red/blue bottom indicator line */
-div[data-testid="stTabs"] [data-baseweb="tab-highlight"] {
+/* Active Tab Typography */
+div[data-testid="stTabs"] button[aria-selected="true"] p {
+    color: #ffffff !important;
+    font-weight: 800 !important;
+    text-shadow: 0 0 10px rgba(255, 255, 255, 0.4) !important;
+}
+
+/* Hover state for inactive tabs */
+div[data-testid="stTabs"] button[role="tab"]:not([aria-selected="true"]):hover {
+    background: rgba(123, 44, 191, 0.15) !important;
+}
+
+/* 6. Hide default Streamlit artifacts */
+div[data-testid="stTabs"] div[data-baseweb="tab-highlight"],
+div[data-testid="stTabs"] button span[data-baseweb="tab-highlight"] {
     display: none !important;
+}
+
+/* 7. Content padding */
+div[data-testid="stTabs"] [data-testid="stTabView"],
+div[data-testid="stTabs"] [role="tabpanel"] {
+    padding-top: 35px !important;
 }
 </style>
 """, unsafe_allow_html=True)
