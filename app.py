@@ -547,74 +547,77 @@ def generate_eda_slider_html(images_b64, titles):
     return html
 
 # ==========================================
-# PREMIUM NAVIGATION TABS (OVERLAY IN BANNER)
+# PREMIUM NAVIGATION TABS (AGGRESSIVE OVERLAY)
 # ==========================================
 
 st.markdown("""
 <style>
-/* 1. Force the tab list to overlay on top of the banner using absolute positioning */
-div[data-testid="stTabs"] > div[data-baseweb="tab-list"] {
-    position: absolute !important;
-    top: -95px !important;  /* Floats the tabs exactly 95px up into the banner */
-    right: 35px !important; /* Aligns them flush with the right edge */
-    width: auto !important;
+/* 1. Target the main Streamlit Tabs container directly */
+.stTabs {
+    position: relative !important;
+    margin-top: -85px !important; /* Pulls the tabs UP into the banner */
+    z-index: 99999 !important;
+}
+
+/* 2. Target the flex container holding the tab buttons */
+.stTabs > div[role="tablist"],
+.stTabs > div > div[role="tablist"], 
+.stTabs div[data-baseweb="tab-list"] {
+    justify-content: flex-end !important; /* Push tabs to the right */
+    padding-right: 35px !important;
     background-color: transparent !important;
     border-bottom: none !important;
-    z-index: 99999 !important;
-    gap: 12px !important;
+    gap: 10px !important;
 }
 
-/* 2. Adjust the content panel below to prevent layout collapse */
-div[data-testid="stTabs"] > div[data-baseweb="tab-panel"] {
-    margin-top: 15px !important;
-}
-
-/* 3. Style tabs as premium glass-like capsules to contrast with the dark background */
-div[data-testid="stTabs"] [data-baseweb="tab"] {
-    height: 42px !important;
+/* 3. Style the individual tab buttons as pills */
+.stTabs button[role="tab"], 
+.stTabs div[data-baseweb="tab"] {
+    height: 40px !important;
     padding: 0 20px !important;
-    border-radius: 21px !important;
+    border-radius: 20px !important;
     background: rgba(255, 255, 255, 0.1) !important;
-    border: 1px solid rgba(255, 255, 255, 0.25) !important;
-    backdrop-filter: blur(10px) !important;
+    border: 1px solid rgba(255, 255, 255, 0.3) !important;
     transition: all 0.3s ease !important;
+    margin: 0 !important;
 }
 
-div[data-testid="stTabs"] [data-baseweb="tab"]:hover {
-    background: rgba(255, 255, 255, 0.2) !important;
-    border-color: rgba(255, 255, 255, 0.4) !important;
-    transform: translateY(-2px);
-}
-
-/* 4. Active Tab Styling (Solid White Pill) */
-div[data-testid="stTabs"] [data-baseweb="tab"][aria-selected="true"] {
+/* 4. Active Tab Styling */
+.stTabs button[role="tab"][aria-selected="true"],
+.stTabs div[data-baseweb="tab"][aria-selected="true"] {
     background: #ffffff !important;
     border-color: #ffffff !important;
-    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.25) !important;
-    transform: translateY(-2px);
 }
 
 /* 5. Tab Text Typography */
-div[data-testid="stTabs"] [data-baseweb="tab"] p {
+.stTabs button[role="tab"] p, 
+.stTabs div[data-baseweb="tab"] p {
     color: #ebd9ff !important;
     font-size: 14px !important;
     font-weight: 600 !important;
 }
 
-div[data-testid="stTabs"] [data-baseweb="tab"][aria-selected="true"] p {
+/* Active Tab Text */
+.stTabs button[role="tab"][aria-selected="true"] p,
+.stTabs div[data-baseweb="tab"][aria-selected="true"] p {
     color: #3a0a63 !important;
     font-weight: 900 !important;
 }
 
-/* 6. Completely hide Streamlit's default red/blue bottom indicator lines */
-div[data-testid="stTabs"] [data-baseweb="tab-highlight"],
-div[data-testid="stTabs"] [data-baseweb="tab"][aria-selected="true"]::after {
+/* 6. Hide default Streamlit underline indicators */
+.stTabs div[data-baseweb="tab-highlight"],
+.stTabs button[role="tab"] span[data-baseweb="tab-highlight"] {
     display: none !important;
-    background-color: transparent !important;
+}
+
+/* 7. Push content down so it doesn't clip into the banner */
+.stTabs [data-testid="stTabView"],
+.stTabs [role="tabpanel"],
+.stTabs [data-baseweb="tab-panel"] {
+    padding-top: 40px !important;
 }
 </style>
 """, unsafe_allow_html=True)
-
 
 # ==========================================
 # MODEL PERFORMANCE — BENTO CARD SYSTEM
