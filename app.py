@@ -547,29 +547,29 @@ def generate_eda_slider_html(images_b64, titles):
     return html
 
 # ==========================================
-# PREMIUM NAVIGATION TABS (EMBEDDED IN BANNER)
+# PREMIUM NAVIGATION TABS (OVERLAY IN BANNER)
 # ==========================================
 
 st.markdown("""
 <style>
-/* 1. Pull the tab container up and align it to the right side inside the banner */
+/* 1. Force the tab list to overlay on top of the banner using absolute positioning */
 div[data-testid="stTabs"] > div[data-baseweb="tab-list"] {
-    position: relative !important;
-    margin-top: -92px !important; /* Pulls the tabs up into the header banner */
-    margin-right: 35px !important; /* Aligns with the right margin of the banner */
-    justify-content: flex-end !important; /* Pushes tabs to the right */
-    z-index: 100000 !important;
+    position: absolute !important;
+    top: -95px !important;  /* Floats the tabs exactly 95px up into the banner */
+    right: 35px !important; /* Aligns them flush with the right edge */
+    width: auto !important;
     background-color: transparent !important;
     border-bottom: none !important;
+    z-index: 99999 !important;
     gap: 12px !important;
 }
 
-/* 2. Control spacing for content below the banner */
-.stTabs [data-baseweb="tab-panel"] {
-    padding-top: 30px !important;
+/* 2. Adjust the content panel below to prevent layout collapse */
+div[data-testid="stTabs"] > div[data-baseweb="tab-panel"] {
+    margin-top: 15px !important;
 }
 
-/* 3. Semi-transparent capsule styling to contrast against the dark gradient banner */
+/* 3. Style tabs as premium glass-like capsules to contrast with the dark background */
 div[data-testid="stTabs"] [data-baseweb="tab"] {
     height: 42px !important;
     padding: 0 20px !important;
@@ -594,7 +594,7 @@ div[data-testid="stTabs"] [data-baseweb="tab"][aria-selected="true"] {
     transform: translateY(-2px);
 }
 
-/* 5. Typography */
+/* 5. Tab Text Typography */
 div[data-testid="stTabs"] [data-baseweb="tab"] p {
     color: #ebd9ff !important;
     font-size: 14px !important;
@@ -603,13 +603,14 @@ div[data-testid="stTabs"] [data-baseweb="tab"] p {
 
 div[data-testid="stTabs"] [data-baseweb="tab"][aria-selected="true"] p {
     color: #3a0a63 !important;
-    font-weight: 800 !important;
+    font-weight: 900 !important;
 }
 
-/* 6. Hide default Streamlit bottom bar indicator */
+/* 6. Completely hide Streamlit's default red/blue bottom indicator lines */
 div[data-testid="stTabs"] [data-baseweb="tab-highlight"],
 div[data-testid="stTabs"] [data-baseweb="tab"][aria-selected="true"]::after {
     display: none !important;
+    background-color: transparent !important;
 }
 </style>
 """, unsafe_allow_html=True)
