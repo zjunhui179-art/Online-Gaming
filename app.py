@@ -494,102 +494,98 @@ def generate_eda_slider_html(images_b64, titles):
     return html
 
 # ==========================================
-# PREMIUM NAVIGATION TABS (UNIFIED DOCKING)
+# PREMIUM NAVIGATION TABS (BULLETPROOF NEON DOCK)
 # ==========================================
 
 st.markdown("""
 <style>
-/* 1. Pull tabs flush against the bottom of the header */
-div[data-testid="stTabs"] {
+/* 1. Pull the entire tab container up to dock seamlessly with the header */
+[data-testid="stTabs"] {
     position: relative !important;
-    margin-top: -15px !important; 
+    margin-top: -10px !important; 
     z-index: 10 !important;
 }
 
 /* 2. Style the Tab Bar background to act as the bottom half of the header card */
-div[data-testid="stTabs"] > div[role="tablist"],
-div[data-testid="stTabs"] div[data-baseweb="tab-list"] {
+[data-testid="stTabs"] [role="tablist"],
+[data-testid="stTabs"] [data-baseweb="tab-list"] {
     width: 100% !important;
     display: flex !important;
     justify-content: center !important;
-    background: #1a0033 !important; /* Matches bottom of header */
+    background: #10002b !important; /* Deep dark purple matching the header */
     border: 1px solid #3c096c !important;
     border-top: none !important;
     border-radius: 0 0 16px 16px !important;
-    padding: 10px 20px !important;
-    gap: 0px !important;
-    box-shadow: 0 15px 30px rgba(0,0,0,0.4) !important;
+    padding: 8px 15px 12px 15px !important;
+    box-shadow: 0 15px 30px rgba(0,0,0,0.5) !important;
+    gap: 0 !important;
 }
 
 /* 3. Base Tab Styling (Inactive) */
-div[data-testid="stTabs"] button[role="tab"], 
-div[data-testid="stTabs"] div[data-baseweb="tab"] {
+[data-testid="stTabs"] button[role="tab"] {
     flex: 1 !important;
-    height: 50px !important;
-    margin: 0 !important;
+    height: 48px !important;
     background: transparent !important;
     border: none !important;
     
     /* Create vertical divider lines between tabs */
-    border-right: 1px solid rgba(123, 44, 191, 0.3) !important;
+    border-right: 1px solid rgba(157, 78, 221, 0.25) !important;
     border-radius: 0 !important;
     
     display: flex !important;
     align-items: center !important;
     justify-content: center !important;
     transition: all 0.3s ease !important;
+    margin: 0 !important;
 }
 
 /* Remove right border from the last tab */
-div[data-testid="stTabs"] button[role="tab"]:last-child, 
-div[data-testid="stTabs"] div[data-baseweb="tab"]:last-child {
+[data-testid="stTabs"] button[role="tab"]:last-child {
     border-right: none !important;
 }
 
-/* 4. Active Tab Styling (Glowing slanted highlight from design) */
-div[data-testid="stTabs"] button[role="tab"][aria-selected="true"],
-div[data-testid="stTabs"] div[data-baseweb="tab"][aria-selected="true"] {
+/* 4. Active Tab Styling (Glowing slanted highlight) */
+[data-testid="stTabs"] button[role="tab"][aria-selected="true"] {
     background: linear-gradient(90deg, rgba(90, 24, 154, 0.8) 0%, rgba(123, 44, 191, 0.4) 100%) !important;
     border: 1px solid #9d4edd !important;
     border-radius: 12px !important; /* Distinct pill shape inside the bar */
     box-shadow: 0 0 15px rgba(157, 78, 221, 0.5) !important;
     transform: scale(1.02);
-    border-right: 1px solid #9d4edd !important;
 }
 
-/* 5. Typography and Icons */
-div[data-testid="stTabs"] button p {
+/* Hover state for inactive tabs */
+[data-testid="stTabs"] button[role="tab"]:not([aria-selected="true"]):hover {
+    background: rgba(123, 44, 191, 0.15) !important;
+}
+
+/* 5. Typography */
+[data-testid="stTabs"] button[role="tab"] p {
     color: #e0aaff !important;
     font-size: 16px !important;
     font-weight: 600 !important;
     margin: 0 !important;
-    display: flex;
-    align-items: center;
-    gap: 10px;
 }
 
 /* Active Tab Typography */
-div[data-testid="stTabs"] button[aria-selected="true"] p {
+[data-testid="stTabs"] button[role="tab"][aria-selected="true"] p {
     color: #ffffff !important;
     font-weight: 800 !important;
-    text-shadow: 0 0 10px rgba(255, 255, 255, 0.4) !important;
+    text-shadow: 0 0 10px rgba(255, 255, 255, 0.5) !important;
 }
 
-/* Hover state for inactive tabs */
-div[data-testid="stTabs"] button[role="tab"]:not([aria-selected="true"]):hover {
-    background: rgba(123, 44, 191, 0.15) !important;
-}
-
-/* 6. Hide default Streamlit artifacts */
-div[data-testid="stTabs"] div[data-baseweb="tab-highlight"],
-div[data-testid="stTabs"] button span[data-baseweb="tab-highlight"] {
+/* 6. Destroy default Streamlit artifacts (Red underline) */
+[data-testid="stTabs"] [data-baseweb="tab-highlight"],
+[data-testid="stTabs"] button[role="tab"] [data-baseweb="tab-highlight"],
+[data-testid="stTabs"] button[role="tab"] div[data-baseweb="tab-highlight"] {
     display: none !important;
+    background: transparent !important;
+    height: 0 !important;
 }
 
-/* 7. Content padding */
-div[data-testid="stTabs"] [data-testid="stTabView"],
-div[data-testid="stTabs"] [role="tabpanel"] {
-    padding-top: 35px !important;
+/* 7. Content padding below the tabs */
+[data-testid="stTabs"] [role="tabpanel"],
+[data-testid="stTabs"] [data-testid="stTabView"] {
+    padding-top: 30px !important;
 }
 </style>
 """, unsafe_allow_html=True)
