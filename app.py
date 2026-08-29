@@ -547,22 +547,21 @@ def generate_eda_slider_html(images_b64, titles):
     return html
 
 # ==========================================
-# PREMIUM NAVIGATION TABS (FULL-WIDTH BUTTONS BELOW BANNER)
+# PREMIUM NAVIGATION TABS (FULL-WIDTH & CENTERED)
 # ==========================================
 
 st.markdown("""
 <style>
 /* 1. Reset the main Tabs container to sit directly below the banner */
-.stTabs {
+div[data-testid="stTabs"] {
     position: relative !important;
-    margin-top: 15px !important; /* Creates a clean gap below the banner */
+    margin-top: 15px !important; 
     z-index: 10 !important;
 }
 
 /* 2. Force the tab list to span 100% width */
-.stTabs > div[role="tablist"],
-.stTabs > div > div[role="tablist"], 
-.stTabs div[data-baseweb="tab-list"] {
+div[data-testid="stTabs"] > div[role="tablist"],
+div[data-testid="stTabs"] div[data-baseweb="tab-list"] {
     width: 100% !important;
     display: flex !important;
     justify-content: space-between !important;
@@ -573,9 +572,8 @@ st.markdown("""
 }
 
 /* 3. Style individual tabs to look exactly like the banner */
-.stTabs button[role="tab"], 
-.stTabs div[data-baseweb="tab"] {
-    flex: 1 !important; /* Distributes width equally across all tabs */
+div[data-testid="stTabs"] button {
+    flex: 1 !important; /* Forces buttons to share width equally */
     height: 55px !important;
     margin: 0 !important;
     border-radius: 16px !important;
@@ -586,14 +584,15 @@ st.markdown("""
     box-shadow: 0 8px 25px rgba(72, 0, 120, 0.2) !important;
     
     transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1) !important;
+    
+    /* Center contents */
     display: flex !important;
     align-items: center !important;
     justify-content: center !important;
 }
 
 /* Hover effect */
-.stTabs button[role="tab"]:hover, 
-.stTabs div[data-baseweb="tab"]:hover {
+div[data-testid="stTabs"] button:hover {
     background: linear-gradient(135deg, #26004a 0%, #3a0a63 50%, #16002b 100%) !important;
     border-color: rgba(190, 120, 255, 0.4) !important;
     transform: translateY(-3px) !important;
@@ -601,41 +600,48 @@ st.markdown("""
 }
 
 /* 4. Active Tab Styling (Glowing Purple Highlight) */
-.stTabs button[role="tab"][aria-selected="true"],
-.stTabs div[data-baseweb="tab"][aria-selected="true"] {
+div[data-testid="stTabs"] button[aria-selected="true"] {
     background: linear-gradient(135deg, #5c1799 0%, #6A0DAD 50%, #4a0880 100%) !important;
     border: 1px solid #b45cff !important;
     box-shadow: 0 8px 25px rgba(106, 13, 173, 0.5), inset 0 0 15px rgba(255, 255, 255, 0.1) !important;
     transform: translateY(-3px) !important;
 }
 
-/* 5. Tab Text Typography */
-.stTabs button[role="tab"] p, 
-.stTabs div[data-baseweb="tab"] p {
+/* 5. Force text wrappers to center align inside the expanded button */
+div[data-testid="stTabs"] button > div {
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    width: 100% !important;
+}
+
+/* 6. Tab Text Typography */
+div[data-testid="stTabs"] button p {
     color: #c9a6f0 !important;
     font-size: 15px !important;
     font-weight: 700 !important;
     letter-spacing: 0.5px !important;
     margin: 0 !important;
+    text-align: center !important;
+    width: 100% !important;
 }
 
 /* Active Tab Text */
-.stTabs button[role="tab"][aria-selected="true"] p,
-.stTabs div[data-baseweb="tab"][aria-selected="true"] p {
+div[data-testid="stTabs"] button[aria-selected="true"] p {
     color: #ffffff !important;
     font-weight: 900 !important;
 }
 
-/* 6. Hide default Streamlit underline indicators */
-.stTabs div[data-baseweb="tab-highlight"],
-.stTabs button[role="tab"] span[data-baseweb="tab-highlight"] {
+/* 7. Hide default Streamlit underline indicators */
+div[data-testid="stTabs"] div[data-baseweb="tab-highlight"],
+div[data-testid="stTabs"] button span[data-baseweb="tab-highlight"] {
     display: none !important;
 }
 
-/* 7. Push tab content down to breathe */
-.stTabs [data-testid="stTabView"],
-.stTabs [role="tabpanel"],
-.stTabs [data-baseweb="tab-panel"] {
+/* 8. Push tab content down to breathe */
+div[data-testid="stTabs"] [data-testid="stTabView"],
+div[data-testid="stTabs"] [role="tabpanel"],
+div[data-testid="stTabs"] [data-baseweb="tab-panel"] {
     padding-top: 25px !important;
 }
 </style>
