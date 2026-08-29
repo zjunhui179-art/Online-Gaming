@@ -552,73 +552,60 @@ def generate_eda_slider_html(images_b64, titles):
 
 st.markdown("""
 <style>
-
-/* Tab container - Use negative margins to hover it into the right side of the Header */
+/* 1. Pull the entire tab list up into the banner area */
 div[data-testid="stTabs"] > div[data-baseweb="tab-list"] {
-    position: sticky !important;
-    top: 4rem !important;
-    margin-top: -105px !important; /* Pull up, embed into the Header */
-    margin-bottom: 20px !important;
-    margin-right: 35px !important; /* Align with the right side of the Header */
-    justify-content: flex-end !important; /* Align to the right */
-    z-index: 100000 !important;
-    background-color: transparent !important; /* Transparent background */
+    margin-top: -65px !important; /* Pulls the tabs over the banner */
+    padding-left: 35px !important; /* Aligns with the banner text */
+    background-color: transparent !important;
     border-bottom: none !important;
+    z-index: 99999 !important;
+    position: relative !important;
     gap: 12px !important;
-    transition: transform 0.4s cubic-bezier(0.3, 0, 0.2, 1) !important;
 }
 
-/* Compensate the position of the content area below to avoid overlap */
-.stTabs [data-baseweb="tab-panel"] {
-    padding-top: 85px !important;
+/* 2. Push the content below the tabs down so it doesn't overlap the header */
+div[data-testid="stTabs"] > div[data-baseweb="tab-panel"] {
+    padding-top: 35px !important;
 }
 
-/* Individual tabs - Transform into semi-transparent premium capsules */
-.stTabs [data-baseweb="tab"] {
-    height: 48px !important;
-    padding: 0 24px !important;
-    border-radius: 24px !important;
+/* 3. Style the tabs as semi-transparent capsules to contrast with the dark banner */
+div[data-testid="stTabs"] [data-baseweb="tab"] {
     background: rgba(255, 255, 255, 0.1) !important;
-    border: 1px solid rgba(255, 255, 255, 0.2) !important;
-    backdrop-filter: blur(10px) !important;
+    border: 1px solid rgba(255, 255, 255, 0.3) !important;
+    border-radius: 20px !important;
+    padding: 6px 20px !important;
+    height: auto !important;
+    min-height: 40px !important;
     transition: all 0.3s ease !important;
 }
 
-/* Hover */
-.stTabs [data-baseweb="tab"]:hover {
+div[data-testid="stTabs"] [data-baseweb="tab"]:hover {
     background: rgba(255, 255, 255, 0.2) !important;
-    border-color: rgba(255, 255, 255, 0.4) !important;
-    transform: translateY(-2px) !important;
+    transform: translateY(-2px);
 }
 
-/* Active tab */
-.stTabs [data-baseweb="tab"][aria-selected="true"] {
+/* 4. Active Tab styling (Solid White) */
+div[data-testid="stTabs"] [data-baseweb="tab"][aria-selected="true"] {
     background: #ffffff !important;
     border-color: #ffffff !important;
-    box-shadow: 0 8px 20px rgba(0,0,0,0.3) !important;
-    transform: translateY(-2px) !important;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.2) !important;
 }
 
-/* Remove default underline */
-.stTabs [data-baseweb="tab-highlight"] {
-    display: none !important;
-}
-
-/* Tab text color adjustment to fit dark background */
-.stTabs [data-baseweb="tab"] p {
+/* 5. Text coloring inside the tabs */
+div[data-testid="stTabs"] [data-baseweb="tab"] p {
     color: #ebd9ff !important;
+    font-weight: 600 !important;
+    font-size: 15px !important;
 }
-
-/* Active text */
-.stTabs [data-baseweb="tab"][aria-selected="true"] p {
+div[data-testid="stTabs"] [data-baseweb="tab"][aria-selected="true"] p {
     color: #3a0a63 !important;
+    font-weight: 800 !important;
 }
 
-/* Remove bottom indicator line */
-.stTabs [data-baseweb="tab"][aria-selected="true"]::after {
+/* 6. Hide the default Streamlit red/blue bottom indicator line */
+div[data-testid="stTabs"] [data-baseweb="tab-highlight"] {
     display: none !important;
 }
-
 </style>
 """, unsafe_allow_html=True)
 
